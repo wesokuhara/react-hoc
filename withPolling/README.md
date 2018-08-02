@@ -2,7 +2,7 @@
 
 This HOC will execute a `pollFn()` at the specified frequency in milliseconds (default: `5000`). A subsequent poll interval is only executed after the previous poll interval completes. Polling will pause and resume based on the `visibilitychange` document event.
 
-This component integrates with Redux to allow the poll function to dispatch an action.
+This component integrates with Redux to allow the poll function to optionally dispatch an action.
 
 ## Example Usage
 
