@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// NOTE: For redux support, import your redux store
+// NOTE: Import your redux store
 import store from '...';
 
 const DEFAULT_POLL_FREQUENCY = 5000;
@@ -11,10 +11,10 @@ const defaultOptions = {
 };
 
 /*
-  Runs the pollFn at the specified frequency.
-  Polling stops when the page is no longer visible or on componentWillUnmount.
-  Polling resumes when the page becomes visible again.
-*/
+ * Runs the pollFn at the specified frequency.
+ * Polling stops when the page is no longer visible or on componentWillUnmount.
+ * Polling resumes when the page becomes visible again.
+ */
 const withPolling = optionsFn => WrappedComponent => {
   let options;
 
@@ -22,7 +22,7 @@ const withPolling = optionsFn => WrappedComponent => {
     constructor(props) {
       super(props);
 
-      const userOptions = optionsFn(store.dispatch, this.props);
+      const userOptions = optionsFn(store.dispatch);
       options = Object.assign({}, defaultOptions, userOptions);
 
       this.state = {
