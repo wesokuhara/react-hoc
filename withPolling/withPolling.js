@@ -10,23 +10,17 @@ const defaultOptions = {
   frequency: DEFAULT_POLL_FREQUENCY
 };
 
-/*
- * Runs the pollFn at the specified frequency.
- * Polling stops when the page is no longer visible or on componentWillUnmount.
- * Polling resumes when the page becomes visible again.
- */
 const withPolling = optionsFn => WrappedComponent => {
-  let options;
-
   return class extends Component {
     constructor(props) {
       super(props);
 
       const userOptions = optionsFn(store.dispatch);
-      options = Object.assign({}, defaultOptions, userOptions);
+      const finalOptions = Object.assign({}, defaultOptions, userOptions);
 
       this.state = {
-        initialized: false
+        initialized: false,
+        options: finalOptions
       };
     }
 
@@ -74,9 +68,9 @@ const withPolling = optionsFn => WrappedComponent => {
     };
 
     poll = async () => {
-      await options.pollFn();
+      await this.state.options.pollFn();
       if (this._shouldPoll) {
-        this._timeout = setTimeout(this.poll, options.frequency);
+        this._timeout = setTimeout(this.poll, this.state.options.frequency);
       }
     };
 
